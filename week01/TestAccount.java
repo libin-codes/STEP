@@ -1,3 +1,5 @@
+package week01;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,11 +20,11 @@ public class TestAccount {
 
         System.out.println(">>> 1. Creating Account");
         Account acc1 = new Account(1001, "John Doe", 25, 1000.0, "Active");
+        acc1.setPin(1234);
         accounts.add(acc1);
         System.out.println("Account created!");
         displayAccountInfo(acc1);
 
-    
         System.out.println(">>> 2. Deposit Money");
         double validDeposit = 500.0;
 
@@ -34,7 +36,6 @@ public class TestAccount {
             System.out.println("FAILED");
         }
 
-       
         double invalidDeposit = -100.0;
         System.out.print("Depositing \u20B9" + invalidDeposit + ": ");
         if (acc1.deposit(invalidDeposit)) {
@@ -43,13 +44,11 @@ public class TestAccount {
             System.out.println("FAILED (Invalid amount)");
         }
 
-      
         System.out.println(">>> 3. Withdraw Money");
-        
-    
+
         double validWithdraw = 200.0;
         System.out.print("Withdrawing \u20B9" + validWithdraw + ": ");
-        if (acc1.withdraw(validWithdraw)) {
+        if (acc1.withdraw(validWithdraw,1234)) {
             System.out.println("SUCCESS");
             System.out.println("New balance: \u20B9" + acc1.getBalance());
         } else {
@@ -58,20 +57,18 @@ public class TestAccount {
 
         double invalidWithdraw = 2000.0;
         System.out.print("Withdrawing \u20B9" + invalidWithdraw + ": ");
-        if (acc1.withdraw(invalidWithdraw)) {
+        if (acc1.withdraw(invalidWithdraw,1234)) {
             System.out.println("SUCCESS");
-        } else {    
+        } else {
             System.out.println("FAILED (Insufficient balance)");
             System.out.println("Current balance: \u20B9" + acc1.getBalance());
         }
 
-     
         System.out.println(">>> 4. Creating Another Account");
         Account acc2 = new Account(1002, "Jane Smith", 30, 2000.0, "Active");
         accounts.add(acc2);
         displayAccountInfo(acc2);
 
-    
         System.out.println(">>> 5. All Accounts");
         for (Account acc : accounts) {
             displayAccountInfo(acc);

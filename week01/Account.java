@@ -1,17 +1,18 @@
+package week01;
+
 public class Account {
 
-    // constants
+    // Constants
     final static int MIN_BALANCE_SAVINGS = 500;
     final static int MIN_BALANCE_CURRENT = 1000;
 
-    // attributes
+    // Attributes
     private int accountNumber;
     private String name;
     private int age;
     private double balance;
     private String accountType;
     private String status;
-
     private Integer pin = null;
 
     Account(
@@ -21,25 +22,25 @@ public class Account {
             double initialBalance,
             String accountType) {
 
-        // validate the age
-        if (!isValidAge(18)) {
+        // validate the age and set age 
+        if (!isValidAge(age)) {
             this.age = 18;
         } else {
             this.age = age;
         }
 
-        // validate account type
+        // validate account type and set account type
         if (!isValidAccountType(accountType)) {
             this.accountType = "Savings";
         } else {
             this.accountType = accountType;
         }
 
-        // validate minimum balance
+        // validate minimum balance and set balance
 
-        if (accountType.equals("Savings") && initialBalance < MIN_BALANCE_SAVINGS) {
+        if (this.accountType.equals("Savings") && initialBalance < MIN_BALANCE_SAVINGS) {
             this.balance = MIN_BALANCE_SAVINGS;
-        } else if (accountType.equals("Current") && initialBalance < MIN_BALANCE_CURRENT) {
+        } else if (this.accountType.equals("Current") && initialBalance < MIN_BALANCE_CURRENT) {
             this.balance = MIN_BALANCE_CURRENT;
         } else {
             this.balance = initialBalance;
@@ -47,27 +48,10 @@ public class Account {
 
         this.accountNumber = accountNumber;
         this.name = name;
-
         this.status = "Active";
     }
 
-    private boolean verifyPin(int pin) {
-        return this.pin != null && this.pin == pin;
-    }
-
-    public boolean setPin(int pin) {
-        if (pin >= 1000 && pin <= 9999) {
-            this.pin = pin;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasPin() {
-        return this.pin != null;
-    }
-
-    // validators
+    // ------------ HELPER FUNCTIONS ---------------
 
     private boolean isValidAge(int age) {
         return age >= 18;
@@ -77,14 +61,23 @@ public class Account {
         return (accountType.equals("Savings") || accountType.equals("Current"));
     }
 
-    // methods
+
+    // ----------- METHODS --------------   
+
+    public boolean verifyPin(int pin) {
+        return this.pin != null && this.pin.equals(pin);
+    }
+
+    public boolean hasPin() {
+        return this.pin != null;
+    }
+    
     public boolean deposit(double amount) {
         if (this.status.equals("Inactive") || amount <= 0) {
             return false;
         }
 
         this.balance += amount;
-
         return true;
 
     }
@@ -93,8 +86,10 @@ public class Account {
         if (this.status.equals("Inactive")
                 || amount > this.balance
                 || amount <= 0
-                || (accountType.equals("Savings") && this.balance - amount < MIN_BALANCE_SAVINGS
-                        || accountType.equals("Current") && this.balance - amount < MIN_BALANCE_CURRENT)
+                || (accountType.equals("Savings") 
+                    && this.balance - amount < MIN_BALANCE_SAVINGS
+                || accountType.equals("Current") 
+                    && this.balance - amount < MIN_BALANCE_CURRENT)
                 || !verifyPin(pin)) {
             return false;
         }
@@ -104,7 +99,7 @@ public class Account {
     }
 
     public boolean closeAccount() {
-        if (this.status.equals("Inactive")){
+        if (this.status.equals("Inactive")) {
             return false;
         }
         this.status = "Inactive";
@@ -112,12 +107,14 @@ public class Account {
     }
 
     public boolean reopenAccount() {
-        if (this.status.equals("Active")){
+        if (this.status.equals("Active")) {
             return false;
         }
         this.status = "Active";
         return true;
     }
+
+    // --------- GETTERS ------------
 
     public int getAccountNumber() {
         return this.accountNumber;
@@ -143,12 +140,28 @@ public class Account {
         return status;
     }
 
+    // --------- SETTERS ------------
+
+    public boolean setPin(int pin) {
+        if (pin >= 1000 && pin <= 9999) {
+            this.pin = pin;
+            return true;
+        }
+        return false;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAge(int age) {
+    public boolean setAge(int age) {
+
+        if (!isValidAge(age)) {
+            return false;
+        }
+
         this.age = age;
+        return true;
     }
 
 }
