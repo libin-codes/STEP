@@ -1,4 +1,4 @@
-package week01;
+package week01.activity03;
 
 public class Account {
 
@@ -142,13 +142,6 @@ public class Account {
 
     // --------- SETTERS ------------
 
-    public boolean setPin(int pin) {
-        if (pin >= 1000 && pin <= 9999) {
-            this.pin = pin;
-            return true;
-        }
-        return false;
-    }
 
     public void setName(String name) {
         this.name = name;
