@@ -1,2 +1,33 @@
+# Compiled Java output
 *.class
 bin/
+out/
+target/
+
+# IDE / editor metadata
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+.vscode/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# SQLite databases (application / test artifacts)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# File-repository runtime data and crash-safe write artifacts
+data/
+test_data/
+*.tmp
+*.bak.*
+*.ser
+
+# Logs
+*.log
